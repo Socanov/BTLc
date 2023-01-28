@@ -30,8 +30,8 @@ namespace BTLc.NPCs.Monsters
         public override void SetDefaults()
         {
             base.SetDefaults();
-            NPC.width = 32;
-            NPC.height = 26;
+            NPC.width = 86;
+            NPC.height = 64;
             NPC.damage = 20;
             NPC.defense = 0;
             NPC.HitSound = SoundID.NPCHit1;
@@ -54,8 +54,6 @@ namespace BTLc.NPCs.Monsters
         public override void AI()
         {
             base.AI();
-            NPC.width = (int)(32 * NPC.scale);
-            NPC.height = (int)(26 * NPC.scale);
             FrameTimer++;
             NPC.direction = (int)NPC.ai[2];
             switch ((NPCState)State)
@@ -158,7 +156,7 @@ namespace BTLc.NPCs.Monsters
                         {
                             for (int i = 0; i < 8; i++)
                             {
-                                Vector2 Pos = PlayerPos + new Vector2(50, 0).RotatedBy(Math.PI / 4 * i);
+                                Vector2 Pos = PlayerPos + new Vector2(550, 0).RotatedBy(Math.PI / 4 * i);
                                 Dust.NewDustDirect(Pos, 10, 10, ModContent.DustType<Dusts.Magic1>(), 0, 0);
                             }
                         }
@@ -166,7 +164,7 @@ namespace BTLc.NPCs.Monsters
                         {
                             Timer = 0;
                             NPC.scale = 2;
-                            NPC.position = PlayerPos + new Vector2(0, -80);
+                            NPC.position = PlayerPos + new Vector2(0, -150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
                             SwitchState((int)NPCState.Normal);
