@@ -32,7 +32,6 @@ namespace BTLc.Projectiles.MonsterProj
 			Projectile.damage = 0;
 			Projectile.light = 0.2f;
             Projectile.scale = 0.7f;
-
 			AIType = ProjectileID.Bullet;
         }
         public override void Kill(int timeLeft)

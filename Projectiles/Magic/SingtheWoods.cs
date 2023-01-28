@@ -3,11 +3,16 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria.Localization;
+using System;
+using System.Threading;
 
 namespace BTLc.Projectiles.Magic
 {
     public class SingtheWoods : ModProjectile
     {
+		public int timer=0;
+		public Vector2 Start;
         public override void SetDefaults() 
 		{
 			Projectile.width = 4;
@@ -17,42 +22,39 @@ namespace BTLc.Projectiles.Magic
 			Projectile.hostile = false;
 			Projectile.DamageType = DamageClass.Magic;
 			Projectile.penetrate = 1;
-			Projectile.timeLeft = 300;
+			Projectile.timeLeft = 100;
 			Projectile.alpha = 255;
 			Projectile.ignoreWater = true;
 			Projectile.tileCollide = false;
 			Projectile.damage = 5;
 			Projectile.light = 0.2f;
-
 			AIType = ProjectileID.Bullet;
-		}
+			Start = Projectile.position;
+        }
         public override void AI()
         {
-            Dust dust = Dust.NewDustDirect(Projectile.Center, 2, 2, ModContent.DustType<Dusts.Magicgreen>(), 0, 0);
-            NPC target = null;
-            Player player = Main.player[Projectile.owner];
-            float distanceMax = 400f;
-            foreach (NPC npc in Main.npc)
-            {
-                if (npc.active && !npc.friendly)
-                {
-                    // 计算与投射物的距离
-                    float currentDistance = Vector2.Distance(npc.Center, Projectile.Center);
-                    if (currentDistance < distanceMax)
-                    {
-                        if (Projectile.timeLeft <= 270)
-                        {
-                            distanceMax = currentDistance;
-                            target = npc;
-                        }
-                    }
+			Projectile.velocity.Normalize();
+			Projectile.velocity *= 400;
+			if (timer == 0)
+			{
+				Start = Projectile.position;
+			}
+			timer++;
+			if (timer > 1)
+			{
+				Vector2 End = Projectile.position;
+				Vector2 Goto = (End - Start);
+                Main.NewText($"{Projectile.position.X},{Projectile.position.X},{Start},{End}");
+                float Tm = Vector2.Distance(End,Start);
+				Goto.Normalize();
+				Vector2 Pos;
+				for(int i = 0; i < Tm; i++)
+				{
+                    Pos = Start + Goto * i;
+                    Dust.NewDustDirect(Pos, 10, 10, ModContent.DustType<Dusts.Magic1>(), 0, 0);
                 }
-            }
-            if(target != null)
-            {
-                var targetVel = Vector2.Normalize(target.position - Projectile.Center) * 10f;
-                Projectile.velocity = (targetVel + Projectile.velocity * 6) / 7f;
-            }
+                Projectile.Kill();
+			}
         }
     }
 }

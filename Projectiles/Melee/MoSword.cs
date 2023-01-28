@@ -14,7 +14,7 @@ namespace BTLc.Projectiles.Melee
     {
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("刀气");
-			Main.projFrames[Projectile.type] = 4;//帧数
+			Main.projFrames[Projectile.type] = 5;//帧数
 			
 		}
 
