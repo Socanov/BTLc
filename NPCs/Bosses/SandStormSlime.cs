@@ -444,7 +444,7 @@ namespace BTLc.NPCs.Bosses
                     {
                         NPC.velocity.X = NPC.ai[2] * 5;
                         if (NPC.collideX) NPC.velocity.X = 0;
-                        if ((NPC.collideY && NPC.position.Y > player.position.Y - 100) || Timer>180)
+                        if ((NPC.collideY && NPC.position.Y > player.position.Y - 160) || Timer>180)
                         {
                             NPC.velocity.X = 0;
                             Timer = 0;
@@ -464,7 +464,7 @@ namespace BTLc.NPCs.Bosses
                         //NPC.velocity.Y += 2f;
                         NPC.velocity.X = NPC.ai[2] * 3;
                         if (NPC.collideX) NPC.velocity.X = 0;
-                        if (NPC.collideY && NPC.position.Y > player.position.Y - 100 || Timer > 180)
+                        if (NPC.collideY && NPC.position.Y > player.position.Y - 160 || Timer > 180)
                         {
                             NPC.velocity.X = 0;
                             Timer = 0;
@@ -503,7 +503,7 @@ namespace BTLc.NPCs.Bosses
                         if (Timer >= 90)
                         {
                             NPC.scale = 3;
-                            NPC.position = PlayerPos+new Vector2(0,-80);
+                            NPC.position = PlayerPos+new Vector2(0,-150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
                             for(int i=0;i<3;i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
@@ -525,7 +525,7 @@ namespace BTLc.NPCs.Bosses
                     {
                         NPC.velocity.X = NPC.ai[2] * 3;
                         if (NPC.collideX) NPC.velocity.X = 0;
-                        if (NPC.collideY && NPC.position.Y > player.position.Y - 100 || Timer > 180)
+                        if (NPC.collideY && NPC.position.Y > player.position.Y - 160 || Timer > 180)
                         {
                             NPC.velocity.X = 0;
                             Timer = 0;
@@ -566,7 +566,7 @@ namespace BTLc.NPCs.Bosses
                         if (Timer >= 60)
                         {
                             NPC.scale = 3;
-                            NPC.position = PlayerPos + new Vector2(0, -80);
+                            NPC.position = PlayerPos + new Vector2(0, -150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
                             for (int i = 0; i < 3; i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
@@ -607,7 +607,7 @@ namespace BTLc.NPCs.Bosses
                         if (Timer >= 60)
                         {
                             NPC.scale = 3;
-                            NPC.position = PlayerPos + new Vector2(0, -80);
+                            NPC.position = PlayerPos + new Vector2(0, -150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
                             for (int i = 0; i < 3; i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
