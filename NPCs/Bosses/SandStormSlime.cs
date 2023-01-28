@@ -129,8 +129,8 @@ namespace BTLc.NPCs.Bosses
         public override void AI()
         {
             HitCD++;
-            NPC.height = (int)(26 * NPC.scale);
-            NPC.damage = (int)(50*NPC.scale);
+            NPC.width = (int)(32 * NPC.scale);
+            NPC.height = (int)(26*NPC.scale);
             Timer++;
             FrameTimer++;
             Player player = Main.player[NPC.target];
@@ -296,8 +296,8 @@ namespace BTLc.NPCs.Bosses
                                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
                                     if (Main.expertMode)
                                     {
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage, 10);
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage/4, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage/4, 10);
 
                                     }
                                 }
@@ -397,8 +397,8 @@ namespace BTLc.NPCs.Bosses
                                     Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo, 871, NPC.damage / 4, 10);
                                     if (Main.expertMode)
                                     {
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage, 10);
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage/4, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage/4, 10);
                                     }
                                 }
                             }
