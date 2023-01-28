@@ -37,8 +37,8 @@ namespace BTLc.NPCs.Bosses
         {
             NPC.lavaImmune = true;
             base.SetDefaults();
-            NPC.width = 32;
-            NPC.height = 26;
+            NPC.width = 93;
+            NPC.height = 56;
             NPC.damage = 50;
             NPC.defense = 5;
             NPC.HitSound = SoundID.NPCHit1;
@@ -129,8 +129,6 @@ namespace BTLc.NPCs.Bosses
         public override void AI()
         {
             HitCD++;
-            NPC.width = (int)(32 * NPC.scale);
-            NPC.height = (int)(26*NPC.scale);
             Timer++;
             FrameTimer++;
             Player player = Main.player[NPC.target];
@@ -296,8 +294,8 @@ namespace BTLc.NPCs.Bosses
                                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
                                     if (Main.expertMode)
                                     {
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage/4, 10);
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage/4, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage, 10);
 
                                     }
                                 }
@@ -397,8 +395,8 @@ namespace BTLc.NPCs.Bosses
                                     Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo, 871, NPC.damage / 4, 10);
                                     if (Main.expertMode)
                                     {
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage/4, 10);
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage/4, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / 6), 871, NPC.damage, 10);
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, Velo.RotatedBy(Math.PI / -6), 871, NPC.damage, 10);
                                     }
                                 }
                             }
@@ -446,7 +444,7 @@ namespace BTLc.NPCs.Bosses
                     {
                         NPC.velocity.X = NPC.ai[2] * 5;
                         if (NPC.collideX) NPC.velocity.X = 0;
-                        if ((NPC.collideY && NPC.position.Y > player.position.Y - 60) || Timer>180)
+                        if ((NPC.collideY && NPC.position.Y > player.position.Y - 100) || Timer>180)
                         {
                             NPC.velocity.X = 0;
                             Timer = 0;
@@ -466,7 +464,7 @@ namespace BTLc.NPCs.Bosses
                         //NPC.velocity.Y += 2f;
                         NPC.velocity.X = NPC.ai[2] * 3;
                         if (NPC.collideX) NPC.velocity.X = 0;
-                        if (NPC.collideY && NPC.position.Y > player.position.Y - 60 || Timer > 180)
+                        if (NPC.collideY && NPC.position.Y > player.position.Y - 100 || Timer > 180)
                         {
                             NPC.velocity.X = 0;
                             Timer = 0;
@@ -527,7 +525,7 @@ namespace BTLc.NPCs.Bosses
                     {
                         NPC.velocity.X = NPC.ai[2] * 3;
                         if (NPC.collideX) NPC.velocity.X = 0;
-                        if (NPC.collideY && NPC.position.Y > player.position.Y - 60 || Timer > 180)
+                        if (NPC.collideY && NPC.position.Y > player.position.Y - 100 || Timer > 180)
                         {
                             NPC.velocity.X = 0;
                             Timer = 0;
