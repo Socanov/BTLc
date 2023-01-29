@@ -92,7 +92,8 @@ namespace BTLc.NPCs.Bosses
             }
             if (SuperRage)
             {
-                number *= 0.67f;//攻速+50%
+                if(Main.getGoodWorld)number *= 0.5f;//攻速+100%
+                else number *= 0.67f;//攻速+50%
             }
             return (int)number;
         }
@@ -132,9 +133,10 @@ namespace BTLc.NPCs.Bosses
             Timer++;
             FrameTimer++;
             Player player = Main.player[NPC.target];
-            if(!Main.dayTime && !player.ZoneDesert && !SuperRage)
-            {
-                Main.NewText("你的失礼行为彻底惹怒了沙暴史莱姆!", new Color(255,0,0));
+            if((!Main.dayTime && !player.ZoneDesert && !SuperRage)||(Main.getGoodWorld && !SuperRage))
+            {   
+                if(Main.getGoodWorld) Main.NewText("一股神秘的力量使沙暴史莱姆变得暴躁不安...", new Color(255, 0, 0));
+                else Main.NewText("你的失礼行为彻底惹怒了沙暴史莱姆!", new Color(255,0,0));
                 if (!Rage)
                 {
                     NPC.defense += 5;
@@ -178,7 +180,7 @@ namespace BTLc.NPCs.Bosses
                             if (GetState() == 1)
                             {
                                 NPC.scale = 2.5f;
-                                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<NPCs.Monsters.StormSlime>());
+                                for (int i = 0; i < (Main.getGoodWorld?2:1); i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<NPCs.Monsters.StormSlime>());
                                 for(int i=0;i<5;i++)NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X+Main.rand.Next(-5,5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);//沙漠史莱姆
                                 Main.NewText("风暴史莱姆已苏醒！沙暴席卷了整个战场！", Color.BlueViolet);
                             }
@@ -186,7 +188,7 @@ namespace BTLc.NPCs.Bosses
                             {
                                 NPC.scale = 2f;
                                 for(int i=0;i<5;i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
-                                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<NPCs.Monsters.StormSlime>());
+                                for (int i = 0; i < (Main.getGoodWorld ? 3 : 1); i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<NPCs.Monsters.StormSlime>());
                                 Main.NewText("来自沙暴史莱姆的最后一击！", Color.BlueViolet);
                             }
                         }
@@ -230,8 +232,8 @@ namespace BTLc.NPCs.Bosses
                                     AIstate++;
                                     NPC.ai[2] = player.Center.X > NPC.Center.X ? 1 : -1;
                                     NPC.direction = (int)NPC.ai[2];
-                                    Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2(Main.expertMode ? -240 : -300, 0), new Vector2(0, -2), 657, NPC.damage / 4, 10);
-                                    Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2(Main.expertMode ? 240 : 300, 0), new Vector2(0, -2), 657, NPC.damage / 4, 10);
+                                    Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2(Main.expertMode ? (Main.getGoodWorld ? -180 : -240) : -300, 0), new Vector2(0, -2), 657, NPC.damage / 4, 10);
+                                    Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2(Main.expertMode ? (Main.getGoodWorld ? 180 : 240) : 300, 0), new Vector2(0, -2), 657, NPC.damage / 4, 10);
                                 }
                             }
                             else if (AIstate == 10)
@@ -308,7 +310,7 @@ namespace BTLc.NPCs.Bosses
                                     AIstate++;
                                     NPC.ai[2] = player.Center.X > NPC.Center.X ? 1 : -1;
                                     NPC.direction = (int)NPC.ai[2];
-                                    for (int i = 0; i < (Main.expertMode?5:3); i++)
+                                    for (int i = 0; i < (Main.expertMode? (Main.getGoodWorld ? 7 : 5) : 3); i++)
                                         Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2(Main.expertMode?400:500, 0).RotatedBy(Math.PI * Main.rand.NextFloat(2f)), new Vector2(0, -2), 657, NPC.damage / 4, 10);
                                 }
                             }
@@ -375,8 +377,8 @@ namespace BTLc.NPCs.Bosses
                                     AIstate++;
                                     NPC.ai[2] = player.Center.X > NPC.Center.X ? 1 : -1;
                                     NPC.direction = (int)NPC.ai[2];
-                                    for (int i = 0; i < (Main.expertMode ? 7 : 4); i++)
-                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2(360, 0).RotatedBy(Math.PI * Main.rand.NextFloat(2f)), new Vector2(0, -2), 657, NPC.damage/4, 10);
+                                    for (int i = 0; i < (Main.expertMode ? (Main.getGoodWorld ? 10 : 7) : 4); i++)
+                                        Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), player.Center + new Vector2((Main.getGoodWorld ? 300 : 360), 0).RotatedBy(Math.PI * Main.rand.NextFloat(2f)), new Vector2(0, -2), 657, NPC.damage/4, 10);
                                 }
                             }
                             else if (AIstate == 5||AIstate==6||AIstate==7)//冲刺
@@ -451,7 +453,7 @@ namespace BTLc.NPCs.Bosses
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
                             SwitchState((int)NPCState.Normal);
-                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-5, 5), (int)NPC.Center.Y + Main.rand.Next(-5, 5), 537);
                         }
                         else if (NPC.collideY)
                         {
@@ -476,7 +478,7 @@ namespace BTLc.NPCs.Bosses
                                 Projectile Proj = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, ShootVelocity2, ModContent.ProjectileType<Projectiles.MonsterProj.SandRock>(), NPC.damage / 4, 10);
                                 Proj.scale = 1;
                             }
-                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-5, 5), (int)NPC.Center.Y + Main.rand.Next(-5, 5), 537);
                             SwitchState((int)NPCState.Normal);
                         }
                         else if (NPC.collideY)
@@ -498,7 +500,9 @@ namespace BTLc.NPCs.Bosses
                         }
                         if (Timer > 60 && Timer < 70)
                         {
-                            PlayerPos = player.position;
+                            if(Main.getGoodWorld) PlayerPos = player.position+player.velocity*20;
+                            else PlayerPos = player.position;
+
                         }
                         if (Timer >= 90)
                         {
@@ -506,7 +510,7 @@ namespace BTLc.NPCs.Bosses
                             NPC.position = PlayerPos+new Vector2(0,-150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
-                            for(int i=0;i<3;i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
+                            for(int i=0;i<3;i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-5, 5), (int)NPC.Center.Y + Main.rand.Next(-5, 5), 537);
                             SwitchState((int)NPCState.Normal);
                             if (Main.expertMode)
                             {
@@ -539,7 +543,7 @@ namespace BTLc.NPCs.Bosses
                                 Projectile Proj = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, ShootVelocity2, ModContent.ProjectileType<Projectiles.MonsterProj.SandRock>(), NPC.damage/4, 10);
                                 Proj.scale = 1.5f;
                             }
-                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
+                            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-5, 5), (int)NPC.Center.Y + Main.rand.Next(-5, 5), 537);
                             SwitchState((int)NPCState.Normal);
                         }
                         else if (NPC.collideY)
@@ -561,7 +565,8 @@ namespace BTLc.NPCs.Bosses
                         }
                         if (Timer > 40 && Timer < 50)
                         {
-                            PlayerPos = player.position;
+                            if (Main.getGoodWorld) PlayerPos = player.position + player.velocity * 10;
+                            else PlayerPos = player.position;
                         }
                         if (Timer >= 60)
                         {
@@ -569,7 +574,7 @@ namespace BTLc.NPCs.Bosses
                             NPC.position = PlayerPos + new Vector2(0, -150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
-                            for (int i = 0; i < 3; i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
+                            for (int i = 0; i < 3; i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-5, 5), (int)NPC.Center.Y + Main.rand.Next(-5, 5), 537);
                             SwitchState((int)NPCState.Normal);
                             for (int i = 0; i < 12; i++)
                             {
@@ -602,7 +607,8 @@ namespace BTLc.NPCs.Bosses
                         }
                         if (Timer > 40 && Timer < 50)
                         {
-                            PlayerPos = player.position;
+                            if (Main.getGoodWorld) PlayerPos = player.position + player.velocity * 10;
+                            else PlayerPos = player.position;
                         }
                         if (Timer >= 60)
                         {
@@ -610,7 +616,7 @@ namespace BTLc.NPCs.Bosses
                             NPC.position = PlayerPos + new Vector2(0, -150);
                             NPC.ai[2] = Main.rand.NextBool() ? -1 : 1;
                             NPC.direction = (int)NPC.ai[2];
-                            for (int i = 0; i < 3; i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.position.X + Main.rand.Next(-5, 5), (int)NPC.position.Y + Main.rand.Next(-5, 5), 537);
+                            for (int i = 0; i < 3; i++) NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-5, 5), (int)NPC.Center.Y + Main.rand.Next(-5, 5), 537);
                             SwitchState((int)NPCState.Normal);
                             for (int i = -3; i < 4; i++)
                             {
@@ -626,9 +632,23 @@ namespace BTLc.NPCs.Bosses
                     {
                         if (Timer % (Main.expertMode?20:25) == 0)
                         {
-                            Vector2 ShootVelocity = player.position - NPC.position;
-                            ShootVelocity.Normalize();
-                            for (int i = 0; i < (Main.expertMode ? 3 : 2); i++)
+                            Vector2 ShootVelocity;
+                            if (!Main.getGoodWorld)
+                            {
+                                ShootVelocity = player.position - NPC.position;
+                                ShootVelocity.Normalize();
+                            }
+                            else//ftw预判攻击
+                            {
+                                ShootVelocity = player.position - NPC.position;
+                                float tm = ShootVelocity.Length() / 12f;
+                                Vector2 Pos2 = player.position + player.velocity * tm;
+                                ShootVelocity = Pos2 - NPC.position;
+                                tm = ShootVelocity.Length() / 12f;
+                                Pos2 = player.position + player.velocity * tm;
+                                ShootVelocity = Pos2 - NPC.position;
+                            }
+                            for (int i = 0; i < (Main.expertMode ? (Main.getGoodWorld?5:3) : 2); i++)
                             {
                                 Vector2 ShootVelocity2 = ShootVelocity.RotatedBy((Main.rand.NextFloat(1f) - 0.5) * Math.PI / 9) * (Main.expertMode?12:8);
                                 Projectile Proj = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center, ShootVelocity2, ModContent.ProjectileType<Projectiles.MonsterProj.FirmFossil>(), NPC.damage/4, 10);
